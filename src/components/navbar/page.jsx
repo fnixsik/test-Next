@@ -1,4 +1,9 @@
+
+"use client"
+
 import Link from "next/link";
+import s from "./style.module.css"
+import DarkModeToggle from "../DarkModeToggle/DarkModeToggle";
 
 const navbar = () => {
 
@@ -38,14 +43,18 @@ const navbar = () => {
 
 
     return ( 
-        <nav>
-            <Link href='/'>Home</Link>
-            <div>
+        <nav className={s.container}>
+            <Link href="/" className={s.logo}>MyApp</Link>
+            <div className={s.links}>
+
+                <DarkModeToggle/>
+
                 {
                     links.map((all) => (
                         <Link key={all.id} href={all.url}>{all.title}</Link>
                     ))
                 }
+                <button className={s.logout} onClick={() => {console.log('LoGout')}}>logout</button>
             </div>
         </nav>
      );
