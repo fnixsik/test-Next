@@ -1,16 +1,29 @@
 import s from './style.module.css'
 import Image from 'next/image';
 
-const BlogId = () => {
+async function getData(id) {
+    const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`)
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch data')
+    }
+   
+    return res.json()
+  }
+
+const BlogId = async ({params}) => {
+
+    const data = await getData(params.id);
+
     return ( 
         <div className={s.container}>
              <div className={s.top}>
                 <div  className={s.info}>
                     <h1 className={s.title}>
-                        Header
+                        {data.id}
                     </h1>
                     <p  className={s.desc}>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing.
+                        {data.title}
                     </p>
                     <div className={s.author}>
                         <Image
@@ -21,7 +34,7 @@ const BlogId = () => {
                             className={s.avatar}
                         />
                         <span className={s.username}>
-                            UserNmae
+                            {data.id}
                         </span>
                     </div>
                 </div>
@@ -36,7 +49,7 @@ const BlogId = () => {
              </div>
              <div className={s.content}>
                 <p className={s.text}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    {data.body}
                 </p>
              </div>
         </div>
