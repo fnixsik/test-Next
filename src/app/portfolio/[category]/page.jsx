@@ -1,24 +1,35 @@
 import Image from 'next/image';
 import Button from '@/components/button/button';
-import s from './style.module.css'
+import s from './style.module.css';
+import {items} from './data';
+import {notFound} from 'next/navigation';
 
+const getData = (all) => {
+    const data = items[all]
+
+    if(data){
+        return data;
+    }
+    return notFound()
+}
 
 const Category = ({params}) => {
-    // console.log(params);
+    console.log(params.category);
+    let data = getData(params.category)
+
     return ( 
         <div className={s.container}>
             <h1 className={s.catTitle}>
                 {params.category}
             </h1>
-            <div className={s.item} key="1">
+                {data.map((all)=>(
+                    <div className={s.item} key={all.id}>
                 <div className={s.content}>
                     <h1 className={s.title}>
-                        here we Are !!!
+                        {all.title}
                     </h1>
                     <p className={s.desc}>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Omnis eum corrupti quod rem. 
-                        Explicabo asperiores harum doloremque?
+                        {all.desc}
                     </p>
                     <Button text="See More" url="#" />
                 </div>
@@ -26,11 +37,12 @@ const Category = ({params}) => {
                     <Image
                         className={s.img}
                         fill = {true}
-                        src= "https://img.freepik.com/free-vector/images-concept-illustration_114360-298.jpg?w=826&t=st=1692161301~exp=1692161901~hmac=556caee0f1819a98221e69e257d9dd4f3f4e4099087424ae2a007515f4a632d7"
+                        src= {all.Image}
                         alt='Image'
                     />
                 </div>
-            </div>
+                    </div>
+                ))}
         </div>
      );
 }
