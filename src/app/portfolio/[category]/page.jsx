@@ -37,8 +37,8 @@ const Category = ({params}) => {
                     <Image
                         className={s.img}
                         fill = {true}
-                        src= {all.Image}
-                        alt='Image'
+                        src= {all.image}
+                        alt= {all.title}
                     />
                 </div>
                     </div>
